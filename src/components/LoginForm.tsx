@@ -1,3 +1,7 @@
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 
 type Props = {};
@@ -19,6 +23,12 @@ export const LoginForm: React.FC<Props> = () => {
 
   return (
     <div>
+      <Card>
+        <CardHeader title="23094">897kjh adf</CardHeader>
+        <CardContent>
+          <Typography>CardContent</Typography>
+        </CardContent>
+      </Card>
       <div>Войти</div>
       <button>Нет, Выйти</button>
     </div>

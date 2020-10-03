@@ -7,7 +7,7 @@ import "./styles.css";
 
 const App: React.FC = () => {
   const articles: readonly IArticle[] = useSelector(
-    (state: ArticleState) => state.articles,
+    (state: AuthState) => state.articles,
     shallowEqual
   );
 

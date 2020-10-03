@@ -4,16 +4,16 @@ interface IArticle {
   body: string;
 }
 
-type ArticleState = {
+type AuthState = {
   articles: IArticle[];
 };
 
-type ArticleAction = {
+type AuthAction = {
   type: string;
   article: IArticle;
 };
 
-type DispatchType = (args: ArticleAction) => ArticleAction;
+type DispatchType = (args: AuthAction) => AuthAction;
 
 interface RouterState {
   url: string;
