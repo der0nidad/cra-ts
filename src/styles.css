@@ -113,3 +113,7 @@ main > h1 {
 .Article button:hover {
   background: #e06a6a;
 }
+
+.router__link {
+  display: block;
+}

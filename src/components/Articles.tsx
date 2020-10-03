@@ -1,11 +1,11 @@
 import * as React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { RouterComp } from "./components/RouterComp";
-import { addArticle } from "./store/actionCreators";
-import "./styles.css";
+import { addArticle, removeArticle } from "../store/actionCreators";
+import { AddArticle } from "./AddArticle";
+import { Article } from "./Article";
 
-const App: React.FC = () => {
+export const Articles: React.FC = () => {
   const articles: readonly IArticle[] = useSelector(
     (state: ArticleState) => state.articles,
     shallowEqual
@@ -20,9 +20,15 @@ const App: React.FC = () => {
 
   return (
     <main>
-      <RouterComp />
+      <h1>My Articles</h1>
+      <AddArticle saveArticle={saveArticle} />
+      {articles.map((article: IArticle) => (
+        <Article
+          key={article.id}
+          article={article}
+          removeArticle={removeArticle}
+        />
+      ))}
     </main>
   );
 };
-
-export default App;

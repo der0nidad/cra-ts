@@ -14,3 +14,9 @@ type ArticleAction = {
 };
 
 type DispatchType = (args: ArticleAction) => ArticleAction;
+
+interface RouterState {
+  url: string;
+}
+
+type TParams = { id: string };
