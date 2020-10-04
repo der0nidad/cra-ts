@@ -2,40 +2,73 @@ import { Button } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { Dispatch } from "redux";
 
 type Props = {};
 
-const clickHandler = (e: React.SyntheticEvent): void => {
-  e.persist();
-  console.log(e);
-};
-
 export const LoginForm: React.FC<Props> = () => {
-  //   const [article, setArticle] = React.useState<IArticle | {}>();
+  const [authState, setAuthState] = React.useState<IAuth | {}>();
 
-  //   const handleArticleData = (e: React.FormEvent<HTMLInputElement>) => {
-  //     setArticle({
-  //       ...article,
-  //       [e.currentTarget.id]: e.currentTarget.value,
-  //     });
-  //   };
+  const dispatch: Dispatch<any> = useDispatch();
 
-  //   const addNewArticle = (e: React.FormEvent) => {
-  //     e.preventDefault();
-  //     saveArticle(article);
-  //   };
+  //   dispatc(loginUserAction(auth)
+  const loginUser = React.useCallback((auth: IAuth) => console.log(auth), [
+    dispatch,
+  ]);
+
+  const clickHandler = (e: React.SyntheticEvent): void => {
+    // e.persist();
+    console.log(authState);
+  };
+  const handleLoginInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setAuthState({
+      ...authState,
+      [e.currentTarget.id]: e.currentTarget.value,
+    });
+  };
+
+  //   по сути - это логин юзер. addNewArticle вызывается на onSubmit у формы
+  const addNewArticle = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthState(authState);
+  };
 
   return (
     <div>
       <Card>
-        <CardHeader title="23094">897kjh adf</CardHeader>
+        <CardHeader title="Вход в систему" />
         <CardContent>
-          <Typography>CardContent</Typography>
-          <Button variant="contained" color="primary" onClick={clickHandler}>
-            Войти
-          </Button>
+          <div>
+            <TextField
+              id="login"
+              label="Логин"
+              variant="outlined"
+              onChange={(e) => handleLoginInputChange(e)}
+            />
+          </div>
+          <div>
+            <TextField
+              id="password"
+              label="Пароль"
+              variant="outlined"
+              type="password"
+              onChange={(e) => handleLoginInputChange(e)}
+            />
+          </div>
+          <div className="user-edit-control-buttons">
+            <Button variant="contained" color="primary" onClick={clickHandler}>
+              Войти
+            </Button>
+            <Button variant="outlined" onClick={clickHandler}>
+              <Link to="/register">Регистрация</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

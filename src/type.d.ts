@@ -4,6 +4,25 @@ interface IArticle {
   body: string;
 }
 
+interface IAuth {
+  id?: number;
+  login: string;
+  password: string;
+}
+
+interface IUser {
+  id: number;
+  name: string;
+  surname?: string;
+  patronymic?: string;
+  email: string;
+  sex?: 0 | 1;
+  dateOfBirth?: string;
+}
+
+interface RouterState {
+  url: string;
+}
 type AuthState = {
   articles: IArticle[];
 };
@@ -14,9 +33,5 @@ type AuthAction = {
 };
 
 type DispatchType = (args: AuthAction) => AuthAction;
-
-interface RouterState {
-  url: string;
-}
 
 type TParams = { id: string };

@@ -121,3 +121,24 @@ main > h1 {
 .router__link {
   display: block;
 }
+
+.user-edit {
+  margin: 4px;
+  padding: 24px 16px;
+}
+
+.user-edit-fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-between;
+  max-width: 700px;
+}
+
+.user-edit-fields__field {
+  margin: 80px;
+}
+.user-edit-control-buttons {
+  display: flex;
+  justify-content: space-around;
+}
