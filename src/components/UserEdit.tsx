@@ -5,6 +5,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { addUserAction } from "../store/actionCreators";
+import { IUser } from "../type";
 
 type Props = {
   title: string;
@@ -48,7 +49,10 @@ export const UserEdit: React.FC<Props> = ({
   };
 
   const saveUser = React.useCallback(
-    (user: IUser) => dispatch(addUserAction(user)),
+    (user: IUser) => {
+      // добавляем проверку - если пользователь новый - создаем, иначе редактируем
+      return dispatch(addUserAction(user));
+    },
     [dispatch]
   );
   return (

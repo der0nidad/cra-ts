@@ -1,12 +1,16 @@
-import { applyMiddleware, createStore, Store } from "redux";
+import { applyMiddleware, combineReducers, createStore, Store } from "redux";
 import thunk from "redux-thunk";
-import usersReducer from "./usersReducer";
+import { AuthAction, DispatchType, RootState } from "../type";
+import { usersReducer, usersRemoveReducer } from "./usersReducer";
 
 // TODO add combinereducers
-// const rootReducer = combineReducers({ users: usersReducer });
+export const rootReducer = combineReducers({
+  users: usersReducer,
+  usersRemove: usersRemoveReducer,
+});
 
-const store: Store<AuthState, AuthAction> & {
+const store: Store<RootState, AuthAction> & {
   dispatch: DispatchType;
-} = createStore(usersReducer, applyMiddleware(thunk));
+} = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

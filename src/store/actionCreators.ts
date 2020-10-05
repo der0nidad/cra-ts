@@ -1,4 +1,12 @@
-import * as actionTypes from "./actionTypes";
+import {
+  AuthAction,
+  DispatchType,
+  IArticle,
+  IUser,
+  RemoveUserAction,
+  UserEditAction,
+} from "../type";
+import actionTypes from "./actionTypes";
 
 export function addArticle(article: IArticle) {
   const action: AuthAction = {
@@ -37,6 +45,14 @@ export const editUserAction = (user: IUser) => {
   const action: UserEditAction = {
     type: actionTypes.EDIT_USER,
     user,
+  };
+  return simulateHttpRequest(action);
+};
+
+export const removeUserAction = (id: string) => {
+  const action: RemoveUserAction = {
+    type: actionTypes.REMOVE_USER,
+    id,
   };
   return simulateHttpRequest(action);
 };

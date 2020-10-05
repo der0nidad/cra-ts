@@ -1,4 +1,5 @@
-import * as actionTypes from "./actionTypes";
+import { ArticleAction, AuthState, IArticle } from "../type";
+import actionTypes from "./actionTypes";
 
 const initialState: AuthState = {
   articles: [

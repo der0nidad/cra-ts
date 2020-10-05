@@ -7,6 +7,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Dispatch } from "redux";
+import { IAuth } from "../type";
 
 type Props = {};
 
@@ -33,7 +34,6 @@ export const LoginForm: React.FC<Props> = () => {
     });
   };
 
-  //   по сути - это логин юзер. addNewArticle вызывается на onSubmit у формы
   const addNewArticle = (e: React.FormEvent) => {
     e.preventDefault();
     setAuthState(authState);

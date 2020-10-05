@@ -2,6 +2,7 @@ import * as React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { addArticle, removeArticle } from "../store/actionCreators";
+import { AuthState, IArticle } from "../type";
 import { AddArticle } from "./AddArticle";
 import { Article } from "./Article";
 

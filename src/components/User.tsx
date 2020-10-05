@@ -3,6 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
+import { TParams } from "../type";
 import { UserEdit } from "./UserEdit";
 
 export const User = ({ match }: RouteComponentProps<TParams>) => {

@@ -17,5 +17,5 @@
     "jsx": "react"
   },
   "include": ["src"],
-  "exclude": ["typings", "node_modules"]
+  "exclude": ["node_modules"]
 }
