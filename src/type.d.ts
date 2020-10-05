@@ -11,7 +11,7 @@ interface IAuth {
 }
 
 interface IUser {
-  id: number;
+  id: string;
   name: string;
   surname?: string;
   patronymic?: string;
@@ -25,12 +25,21 @@ interface RouterState {
 }
 type AuthState = {
   articles: IArticle[];
+  users: IUser[];
+  currentUser?: IUser;
 };
 
-type AuthAction = {
+type ArticleAction = {
   type: string;
   article: IArticle;
 };
+
+type UserEditAction = {
+  type: string;
+  user: IUser;
+};
+
+type AuthAction = ArticleAction | UserEditAction;
 
 type DispatchType = (args: AuthAction) => AuthAction;
 

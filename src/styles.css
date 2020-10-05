@@ -142,3 +142,11 @@ main > h1 {
   display: flex;
   justify-content: space-around;
 }
+
+.users-list__button {
+  margin-left: 8px;
+}
+
+.users-list__row {
+  margin-top: 16px;
+}

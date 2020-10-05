@@ -1,7 +1,12 @@
 import { applyMiddleware, createStore, Store } from "redux";
 import thunk from "redux-thunk";
-import reducer from "./reducer";
+import usersReducer from "./usersReducer";
 
-export const store: Store<AuthState, AuthAction> & {
+// TODO add combinereducers
+// const rootReducer = combineReducers({ users: usersReducer });
+
+const store: Store<AuthState, AuthAction> & {
   dispatch: DispatchType;
-} = createStore(reducer, applyMiddleware(thunk));
+} = createStore(usersReducer, applyMiddleware(thunk));
+
+export default store;

@@ -24,3 +24,19 @@ export function simulateHttpRequest(action: AuthAction) {
     }, 500);
   };
 }
+
+export const addUserAction = (user: IUser) => {
+  const action: UserEditAction = {
+    type: actionTypes.ADD_USER,
+    user,
+  };
+  return simulateHttpRequest(action);
+};
+
+export const editUserAction = (user: IUser) => {
+  const action: UserEditAction = {
+    type: actionTypes.EDIT_USER,
+    user,
+  };
+  return simulateHttpRequest(action);
+};

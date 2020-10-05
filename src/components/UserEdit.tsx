@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
+import { addUserAction } from "../store/actionCreators";
 
 type Props = {
   title: string;
@@ -33,6 +34,9 @@ export const UserEdit: React.FC<Props> = ({
   const clickHandler = (e: React.SyntheticEvent): void => {
     // e.persist();
     console.log(userState);
+    // add valdation
+    console.log(typeof userState);
+    saveUser(userState as IUser);
   };
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,6 +47,10 @@ export const UserEdit: React.FC<Props> = ({
     });
   };
 
+  const saveUser = React.useCallback(
+    (user: IUser) => dispatch(addUserAction(user)),
+    [dispatch]
+  );
   return (
     <div className="user-edit">
       {/* <CardHeader title={title} /> */}

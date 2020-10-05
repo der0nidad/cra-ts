@@ -14,7 +14,7 @@ export const User = ({ match }: RouteComponentProps<TParams>) => {
           title="Редактироование"
           buttonText="Сохранить"
           user={{
-            id: 1,
+            id: "1",
             name: "nameeee",
             email: "email, eee",
             surname: "jug",

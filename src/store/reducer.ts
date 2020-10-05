@@ -15,10 +15,11 @@ const initialState: AuthState = {
         "Harum quidem rerum facilis est et expedita distinctio quas molestias excepturi sint",
     },
   ],
+  users: [],
 };
 const reducer = (
   state: AuthState = initialState,
-  action: AuthAction
+  action: ArticleAction
 ): AuthState => {
   switch (action.type) {
     case actionTypes.ADD_ARTICLE:
@@ -44,3 +45,13 @@ const reducer = (
 };
 
 export default reducer;
+
+// case actionTypes.ADD_USER:
+//     const newUser: IUser = {
+//       id: nanoid(),
+//       name: action.
+//     };
+//     return {
+//       ...state,
+//       users: state.users.concat(newUser),
+//     };
