@@ -7,11 +7,22 @@ import { Dispatch } from "redux";
 import { addUserAction } from "../store/actionCreators";
 import { IUser } from "../type";
 
+export enum UserEditButtonTextProp {
+  register = "Регистрация",
+  save = "Сохранить",
+}
+export enum UserEditTitleProp {
+  register = "Регистрация нового пользователя",
+  save = "Редактирование данных пользователя",
+}
 type Props = {
-  title: string;
-  buttonText: "Регистрация" | "Сохранить";
+  title: UserEditTitleProp | string;
+  // TODO выпилить buttonText из пропсов - сделать внутренней константой и
+  // выбирать по пропсу isNewUser
+  buttonText: UserEditButtonTextProp;
   actionCallback?: Function;
   user?: IUser;
+  isNewUser: boolean;
 };
 // interface IUser {
 //     id: number;
@@ -27,16 +38,15 @@ export const UserEdit: React.FC<Props> = ({
   buttonText,
   actionCallback,
   user,
+  isNewUser,
 }: Props) => {
   const [userState, setUserState] = React.useState<IUser | {}>();
 
   const dispatch: Dispatch<any> = useDispatch();
 
   const clickHandler = (e: React.SyntheticEvent): void => {
-    // e.persist();
     console.log(userState);
     // add valdation
-    console.log(typeof userState);
     saveUser(userState as IUser);
   };
   const handleInputChange = (
@@ -115,6 +125,7 @@ export const UserEdit: React.FC<Props> = ({
 };
 
 UserEdit.defaultProps = {
-  title: "регистрация -45",
-  buttonText: "Регистрация",
+  title: UserEditTitleProp.register,
+  buttonText: UserEditButtonTextProp.register,
+  isNewUser: true,
 };

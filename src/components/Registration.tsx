@@ -1,6 +1,6 @@
 import { Container, Paper } from "@material-ui/core";
 import * as React from "react";
-import { UserEdit } from "./UserEdit";
+import { UserEdit, UserEditButtonTextProp } from "./UserEdit";
 type Props = {
   title: string;
   buttonText: "Регистрация" | "Сохранить";
@@ -19,7 +19,11 @@ export const Registration: React.FC<Props> = ({ title, buttonText }: Props) => {
     <div>
       <Container>
         <Paper>
-          <UserEdit title="регистер" buttonText="Сохранить" />
+          <UserEdit
+            title="регистер"
+            buttonText={UserEditButtonTextProp.register}
+            isNewUser
+          />
         </Paper>
       </Container>
     </div>

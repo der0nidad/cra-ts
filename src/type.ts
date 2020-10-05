@@ -22,13 +22,15 @@ export interface IUser {
   dateOfBirth?: string;
 }
 
+export type IUserOptional = IUser | undefined;
+
 export interface RouterState {
   url: string;
 }
 export type AuthState = {
   articles: IArticle[];
   users: IUser[];
-  currentUser?: IUser;
+  currentUserId?: string;
   someUsers?: IUser[];
 };
 
