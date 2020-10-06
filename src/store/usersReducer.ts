@@ -23,6 +23,11 @@ export const usersReducer = (
   action: AuthAction
 ): AuthState => {
   switch (action.type) {
+    case actionTypes.LOADING_START:
+      return {
+        ...state,
+        loading: true,
+      };
     case actionTypes.ADD_USER:
       console.log(action);
       const newUser: IUser = {
@@ -47,6 +52,11 @@ export const usersReducer = (
       return {
         ...state,
         users: updatedUsers,
+      };
+    case actionTypes.LOGIN_USER_FINISH:
+      return {
+        ...state,
+        currentUserId: action.id,
       };
   }
   return state;

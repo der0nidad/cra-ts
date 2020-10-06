@@ -4,22 +4,34 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import TextField from "@material-ui/core/TextField";
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Dispatch } from "redux";
-import { IAuth } from "../type";
+import { loginUserAction } from "../store/actionCreators";
+import { IAuth, IUser, RootState } from "../type";
 
 type Props = {};
 
 export const LoginForm: React.FC<Props> = () => {
   const [authState, setAuthState] = React.useState<IAuth | {}>();
 
+  const users: IUser[] = useSelector((state: RootState) => state.users.users);
+
   const dispatch: Dispatch<any> = useDispatch();
 
   //   dispatc(loginUserAction(auth)
-  const loginUser = React.useCallback((auth: IAuth) => console.log(auth), [
-    dispatch,
-  ]);
+  const loginUser = React.useCallback(
+    (auth: IAuth) =>
+      dispatch(loginUserAction(auth, users))
+        .then((user) => {
+          console.log(user);
+          // TODO добавить редирект на страницу пользователя
+        })
+        .catch(() => {
+          // TODO добавить нотификашку и подкрашивание полей формы в error
+        }),
+    [dispatch]
+  );
 
   const clickHandler = (e: React.SyntheticEvent): void => {
     // e.persist();

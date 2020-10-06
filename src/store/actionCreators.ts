@@ -2,7 +2,9 @@ import {
   AuthAction,
   DispatchType,
   IArticle,
+  ILoginPayload,
   IUser,
+  LoginSuccesAction,
   RemoveUserAction,
   UserEditAction,
 } from "../type";
@@ -27,9 +29,11 @@ export function removeArticle(article: IArticle) {
 
 export function simulateHttpRequest(action: AuthAction) {
   return (dispatch: DispatchType) => {
+    dispatch({ type: actionTypes.LOADING_START });
     setTimeout(() => {
       dispatch(action);
     }, 500);
+    dispatch({ type: actionTypes.LOADING_FINISHED });
   };
 }
 
@@ -55,4 +59,27 @@ export const removeUserAction = (id: string) => {
     id,
   };
   return simulateHttpRequest(action);
+};
+
+export const loginUserAction = (data: ILoginPayload, users: IUser[]) => {
+  return new Promise((resolve, reject) => {
+    const user = users.find((user) => user.login === data.login);
+    let errorText = "";
+    if (user) {
+      if (data.password === user.password) {
+        const action: LoginSuccesAction = {
+          type: actionTypes.LOGIN_USER_FINISH,
+          id: user.id,
+          status: "success",
+        };
+        simulateHttpRequest(action);
+        resolve({ id: user.id });
+      } else {
+        errorText = `Неверный пароль для пользователя ${data.login}`;
+      }
+    } else {
+      errorText = `Пользователь с логином ${data.login} не зарегистрирован`;
+    }
+    throw new Error(errorText);
+  });
 };

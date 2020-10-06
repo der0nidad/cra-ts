@@ -1,5 +1,6 @@
 import actionTypes from "./store/actionTypes";
 import { rootReducer } from "./store/store";
+
 export interface IArticle {
   id: number;
   title: string;
@@ -20,6 +21,9 @@ export interface IUser {
   email: string;
   sex?: 0 | 1;
   dateOfBirth?: string;
+  //  мб вынести в отдельный интерфейс
+  login?: string;
+  password?: string;
 }
 
 export type IUserOptional = IUser | undefined;
@@ -32,8 +36,13 @@ export type AuthState = {
   users: IUser[];
   currentUserId?: string;
   someUsers?: IUser[];
+  loading?: boolean;
 };
 
+export interface ILoginPayload {
+  login: string;
+  password: string;
+}
 export type ArticleAction = {
   type: actionTypes.ADD_ARTICLE | actionTypes.REMOVE_ARTICLE;
   article: IArticle;
@@ -49,7 +58,34 @@ export type RemoveUserAction = {
   id: string;
 };
 
-export type AuthAction = ArticleAction | UserEditAction | RemoveUserAction;
+export type LoadingStartAction = {
+  type: actionTypes.LOADING_START;
+};
+
+export type LoadingFinishAction = {
+  type: actionTypes.LOADING_FINISHED;
+};
+
+export type LoginSuccesAction = {
+  type: actionTypes.LOGIN_USER_FINISH;
+  id: string;
+  status: "success";
+};
+
+export type LoginFailAction = {
+  type: actionTypes.LOGIN_USER_FAIL;
+  error: string;
+  status: "error";
+};
+
+export type AuthAction =
+  | ArticleAction
+  | UserEditAction
+  | RemoveUserAction
+  | LoadingStartAction
+  | LoadingFinishAction
+  | LoginSuccesAction
+  | LoginFailAction;
 
 export type DispatchType = (args: AuthAction) => AuthAction;
 
