@@ -1,3 +1,3 @@
-export const getSex: (number) => string = (code: number) => {
-  return code ? "Ж" : "М";
+export const getSex = (code: string) => {
+  return Number(code) ? "Женский" : "Мужской";
 };

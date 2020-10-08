@@ -9,6 +9,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { emptyString } from "../constants";
+import { getSex } from "../helpers";
 import { removeUserAction } from "../store/actionCreators";
 import { IUser } from "../type";
 
@@ -34,7 +35,9 @@ export const UserCard: React.FC<Props> = ({ user }: Props) => {
         <CardContent>
           <div className="users-list__row" key={user.id}>
             <Typography>{`email: ${user.email}`}</Typography>
-            <Typography>{`Пол : ${user.sex || emptyString}`}</Typography>
+            <Typography>{`Пол : ${
+              getSex(user.sex) || emptyString
+            }`}</Typography>
             <Typography>{`Дата рождения: ${
               user.dateOfBirth || emptyString
             }`}</Typography>

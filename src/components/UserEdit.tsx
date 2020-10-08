@@ -1,10 +1,23 @@
-// поля: id, фио, пол, дата рождения, email
-import { Button, Typography } from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
+import { currentUserUrl } from "../constants";
 import { addUserAction, editUserAction } from "../store/actionCreators";
 import { IUser, RootState } from "../type";
 
@@ -24,15 +37,7 @@ type Props = {
   user?: IUser;
   isNewUser: boolean;
 };
-// interface IUser {
-//     id: number;
-//     name: string;
-//     surname?: string;
-//     patronymic?: string;
-//     email: string;
-//     sex?: 0 | 1;
-//     dateOfBirth?: string;
-//   }
+
 export const UserEdit: React.FC<Props> = ({
   title,
   buttonText,
@@ -49,11 +54,10 @@ export const UserEdit: React.FC<Props> = ({
 
   let history = useHistory();
   const clickHandler = (e: React.SyntheticEvent): void => {
-    console.log(userState);
     // add validation
     const userData = { ...user, ...userState };
     saveUser(userData as IUser);
-    history.push("/me");
+    history.push(currentUserUrl);
   };
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,6 +68,14 @@ export const UserEdit: React.FC<Props> = ({
     });
   };
 
+  const handleRadioChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setUserState({
+      ...userState,
+      [e.target.name]: e.currentTarget.value,
+    });
+  };
   const saveUser = React.useCallback(
     (user: IUser) => {
       if (isNewUser) {
@@ -80,6 +92,14 @@ export const UserEdit: React.FC<Props> = ({
     },
     [dispatch]
   );
+  const handleDateChange = (e: any) => {
+    console.log(e);
+    setUserState({
+      ...userState,
+      dateOfBirth: e,
+    });
+    // console.log(e.target);
+  };
   return (
     <div className="user-edit">
       <Typography>{title}</Typography>
@@ -146,6 +166,37 @@ export const UserEdit: React.FC<Props> = ({
             variant="outlined"
             onChange={(e) => handleInputChange(e)}
           />
+        </div>
+        <div className="user-edit__form-field">
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Пол</FormLabel>
+            <RadioGroup
+              aria-label="sex"
+              name="sex"
+              defaultValue={user?.sex}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel value="1" control={<Radio />} label="Женский" />
+              <FormControlLabel value="0" control={<Radio />} label="Мужской" />
+            </RadioGroup>
+          </FormControl>
+        </div>
+        <div className="user-edit__form-field">
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Дата рождения"
+              value={user?.dateOfBirth}
+              onChange={(e) => handleDateChange(e)}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
         </div>
       </div>
 

@@ -20,9 +20,8 @@ export interface IUser {
   surname: string;
   patronymic: string;
   email: string;
-  sex?: 0 | 1;
-  dateOfBirth?: string;
-  //  мб вынести в отдельный интерфейс
+  sex: "0" | "1";
+  dateOfBirth?: Date;
   login: string;
   password: string;
 }

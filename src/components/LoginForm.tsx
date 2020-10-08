@@ -84,7 +84,7 @@ export const LoginForm: React.FC<Props> = () => {
   };
 
   return (
-    <div>
+    <div className="login-form__card">
       {/* FIXME здесь точно существует лучший способ проверить, что authState - инстанс IAuth, а не {} */}
       {authState && (authState as IAuth).errorNotification}
       <Card>

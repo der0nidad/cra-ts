@@ -5,20 +5,6 @@ import actionTypes from "./actionTypes";
 const initialState: AuthState = {
   articles: [],
   users: JSON.parse(localStorage.getItem("users") || "[]"),
-  // someUsers: [
-  //   {
-  //     id: "1",
-  //     name: "user 1",
-  //     email: "user1@example.com",
-  //     login: "a",
-  //     password: "a",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "user 2",
-  //     email: "user2@example.com",
-  //   },
-  // ],
   currentUserId: localStorage.getItem("currentUserId") || undefined,
 };
 export const usersReducer = (
@@ -46,6 +32,7 @@ export const usersReducer = (
         patronymic: action.user.patronymic,
         login: action.user.login,
         password: action.user.password,
+        sex: action.user.sex,
       };
       localStorage.setItem(
         "users",
@@ -58,30 +45,32 @@ export const usersReducer = (
         currentUserId: newId,
       };
     case actionTypes.EDIT_USER:
-      console.log(action);
       const usersUpdated = state.users.map((user) => {
         if (user.id === action.user.id) {
           return { ...user, ...action.user };
         }
         return user;
       });
-      localStorage.setItem(
-        "users",
-        JSON.stringify(state.users.concat(usersUpdated))
-      );
+      localStorage.setItem("users", JSON.stringify(usersUpdated));
       return {
         ...state,
         users: usersUpdated,
       };
     case actionTypes.REMOVE_USER:
-      // TODO добавь обработку кейса удаления текущего пользователя
+      let newCurrUserId = state.currentUserId;
       const updatedUsers: IUser[] = state.users.filter(
         (user) => user.id !== action.id
       );
       localStorage.setItem("users", JSON.stringify(updatedUsers));
+      // обрабатываем кейс удаления текущего пользователя
+      if (action.id === state.currentUserId) {
+        localStorage.removeItem("currentUserId");
+        newCurrUserId = undefined;
+      }
       return {
         ...state,
         users: updatedUsers,
+        currentUserId: newCurrUserId,
       };
     case actionTypes.LOGIN_USER_FINISH:
       localStorage.setItem("currentUserId", action.id);
