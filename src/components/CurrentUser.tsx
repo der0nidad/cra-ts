@@ -29,7 +29,6 @@ export const CurrentUser = ({ match }: RouteComponentProps<TParams>) => {
   return (
     <div>
       <Paper>
-        <Typography>Пользователь, опа. твой id {match.params.id}</Typography>
         <UserEdit
           title="Редактироование"
           buttonText={UserEditButtonTextProp.save}

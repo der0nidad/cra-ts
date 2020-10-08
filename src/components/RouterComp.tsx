@@ -18,20 +18,25 @@ export const RouterComp: React.FC<Props> = () => {
             <Link className="router__link" to="/">
               Login
             </Link>
-            <Link className="router__link" to="/user/1">
-              User 1
-            </Link>
+            {/* <Link className="router__link" to="/user/1"> */}
+            {/* User 1 */}
+            {/* </Link> */}
             <Link className="router__link" to="/register">
               Register
             </Link>
             <Link className="router__link" to="/users">
               All users
             </Link>
+            <Link className="router__link" to="/me">
+              Current User
+            </Link>
             {/* <Link to="/bar">Bar</Link> */}
           </nav>
           <Switch>
             <Route exact path="/" component={LoginForm} />
-            <Route exact path="/user/:id" component={CurrentUser} />
+            {/* TODO add User component */}
+            {/* <Route exact path="/user/:id" component={User} /> */}
+            <Route exact path="/me" component={CurrentUser} />
             {/* <Route exact path="/articles" component={Articles} /> */}
             <Route exact path="/register" component={Registration} />
             <Route exact path="/users" component={UsersList} />

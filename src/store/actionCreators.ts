@@ -1,5 +1,6 @@
 import {
   AuthAction,
+  AuthState,
   DispatchType,
   IArticle,
   ILoginPayload,
@@ -32,8 +33,8 @@ export function simulateHttpRequest(action: AuthAction) {
     dispatch({ type: actionTypes.LOADING_START });
     setTimeout(() => {
       dispatch(action);
+      dispatch({ type: actionTypes.LOADING_FINISHED });
     }, 500);
-    dispatch({ type: actionTypes.LOADING_FINISHED });
   };
 }
 
@@ -61,25 +62,26 @@ export const removeUserAction = (id: string) => {
   return simulateHttpRequest(action);
 };
 
-export const loginUserAction = (data: ILoginPayload, users: IUser[]) => {
-  return new Promise((resolve, reject) => {
-    const user = users.find((user) => user.login === data.login);
-    let errorText = "";
-    if (user) {
-      if (data.password === user.password) {
-        const action: LoginSuccesAction = {
-          type: actionTypes.LOGIN_USER_FINISH,
-          id: user.id,
-          status: "success",
-        };
-        simulateHttpRequest(action);
-        resolve({ id: user.id });
-      } else {
-        errorText = `Неверный пароль для пользователя ${data.login}`;
-      }
+export const loginUserAction = (data: ILoginPayload, users: IUser[]) => (
+  dispatch: Function,
+  getState: () => AuthState
+) => {
+  const user = users.find((user) => user.login === data.login);
+  let errorText = "";
+  if (user) {
+    if (data.password === user.password) {
+      const action: LoginSuccesAction = {
+        type: actionTypes.LOGIN_USER_FINISH,
+        id: user.id,
+        status: "success",
+      };
+      dispatch(simulateHttpRequest(action));
+      return { id: user.id };
     } else {
-      errorText = `Пользователь с логином ${data.login} не зарегистрирован`;
+      errorText = `Неверный пароль для пользователя ${data.login}`;
     }
-    throw new Error(errorText);
-  });
+  } else {
+    errorText = `Пользователь с логином ${data.login} не зарегистрирован`;
+  }
+  throw new Error(errorText);
 };

@@ -11,6 +11,7 @@ export interface IAuth {
   id?: number;
   login: string;
   password: string;
+  errorNotification: any;
 }
 
 export interface IUser {

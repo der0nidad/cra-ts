@@ -1,15 +1,17 @@
 import { nanoid } from "nanoid";
-import { AuthAction, AuthState, IUser, RemoveUserAction } from "../type";
+import { AuthAction, AuthState, IUser } from "../type";
 import actionTypes from "./actionTypes";
 
 const initialState: AuthState = {
   articles: [],
-  users: JSON.parse(localStorage.getItem("users") || "[]"),
-  someUsers: [
+  someUsers: JSON.parse(localStorage.getItem("users") || "[]"),
+  users: [
     {
       id: "1",
       name: "user 1",
       email: "user1@example.com",
+      login: "a",
+      password: "a",
     },
     {
       id: "2",
@@ -61,33 +63,3 @@ export const usersReducer = (
   }
   return state;
 };
-
-export const usersRemoveReducer = (
-  state: AuthState = initialState,
-  action: RemoveUserAction
-): AuthState => {
-  switch (action.type) {
-    case actionTypes.REMOVE_USER:
-      // console.log();
-      const updatedUsers: IUser[] = state.users.filter(
-        (user) => user.id !== action.id
-      );
-      console.log(updatedUsers);
-      return {
-        ...state,
-        users: updatedUsers,
-      };
-  }
-  return state;
-};
-// export usersReducer;
-
-// case actionTypes.ADD_USER:
-//     const newUser: IUser = {
-//       id: nanoid(),
-//       name: action.
-//     };
-//     return {
-//       ...state,
-//       users: state.users.concat(newUser),
-//     };
