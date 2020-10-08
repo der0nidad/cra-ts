@@ -25,14 +25,8 @@ export const usersReducer = (
     case actionTypes.ADD_USER:
       const newId = nanoid();
       const newUser: IUser = {
+        ...action.user,
         id: newId,
-        name: action.user.name,
-        email: action.user.email,
-        surname: action.user.surname,
-        patronymic: action.user.patronymic,
-        login: action.user.login,
-        password: action.user.password,
-        sex: action.user.sex,
       };
       localStorage.setItem(
         "users",

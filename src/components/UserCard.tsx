@@ -25,6 +25,7 @@ export const UserCard: React.FC<Props> = ({ user }: Props) => {
     },
     [dispatch]
   );
+  const dateOfBirth = new Date(user.dateOfBirth);
 
   return (
     <div className="users-list__user-card">
@@ -39,7 +40,7 @@ export const UserCard: React.FC<Props> = ({ user }: Props) => {
               getSex(user.sex) || emptyString
             }`}</Typography>
             <Typography>{`Дата рождения: ${
-              user.dateOfBirth || emptyString
+              dateOfBirth.toLocaleDateString("ru") || emptyString
             }`}</Typography>
             {/* <Button variant="contained" className="users-list__button">
               Редактировать

@@ -93,7 +93,10 @@ export const UserEdit: React.FC<Props> = ({
     [dispatch]
   );
   const handleDateChange = (e: any) => {
-    console.log(e);
+    console.log({
+      ...userState,
+      dateOfBirth: e,
+    });
     setUserState({
       ...userState,
       dateOfBirth: e,

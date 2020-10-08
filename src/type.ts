@@ -21,7 +21,7 @@ export interface IUser {
   patronymic: string;
   email: string;
   sex: "0" | "1";
-  dateOfBirth?: Date;
+  dateOfBirth: Date;
   login: string;
   password: string;
 }
