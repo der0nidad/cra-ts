@@ -35,6 +35,7 @@ export const UserCard: React.FC<Props> = ({ user }: Props) => {
         />
         <CardContent>
           <div className="users-list__row" key={user.id}>
+            <Typography>{`логин: ${user.login}`}</Typography>
             <Typography>{`email: ${user.email}`}</Typography>
             <Typography>{`Пол : ${
               getSex(user.sex) || emptyString

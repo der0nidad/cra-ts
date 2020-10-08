@@ -90,18 +90,13 @@ export const UserEdit: React.FC<Props> = ({
         return dispatch(editUserAction(user));
       }
     },
-    [dispatch]
+    [dispatch, isNewUser, users]
   );
   const handleDateChange = (e: any) => {
-    console.log({
-      ...userState,
-      dateOfBirth: e,
-    });
     setUserState({
       ...userState,
       dateOfBirth: e,
     });
-    // console.log(e.target);
   };
   return (
     <div className="user-edit">

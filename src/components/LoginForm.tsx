@@ -7,7 +7,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
-import { registerUrl } from "../constants";
+import { mainUrl, registerUrl } from "../constants";
 import { loginUserAction } from "../store/actionCreators";
 import { IAuth, IUser, RootState } from "../type";
 
@@ -24,13 +24,18 @@ export const LoginForm: React.FC<Props> = () => {
 
   const loginUser = React.useCallback(
     (auth: IAuth) => {
+      const handleClose = (e: React.SyntheticEvent, reason: string) => {
+        if (reason === "clickaway") {
+          return;
+        }
+        setAuthState({
+          ...authState,
+          errorNotification: null,
+        });
+      };
       try {
-        console.log(dispatch(loginUserAction(auth, users)));
-        console.log(23);
-        history.push("/");
-        history.push("/");
-        history.push("/");
-        console.log(23);
+        dispatch(loginUserAction(auth, users));
+        history.push(mainUrl);
       } catch (error) {
         const errorNotification = (
           <Snackbar
@@ -50,7 +55,7 @@ export const LoginForm: React.FC<Props> = () => {
         });
       }
     },
-    [dispatch]
+    [dispatch, users, history, authState]
   );
 
   const clickHandler = (e: React.SyntheticEvent): void => {
@@ -65,21 +70,6 @@ export const LoginForm: React.FC<Props> = () => {
     setAuthState({
       ...authState,
       [e.currentTarget.id]: e.currentTarget.value,
-    });
-  };
-
-  const addNewArticle = (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthState(authState);
-  };
-  const handleClose = (e: React.SyntheticEvent, reason: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setAuthState({
-      ...authState,
-      errorNotification: null,
     });
   };
 

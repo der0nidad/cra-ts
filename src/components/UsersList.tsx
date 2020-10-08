@@ -8,7 +8,6 @@ export const UsersList: React.FC = () => {
   const users: readonly IUser[] = useSelector((state: RootState) => {
     return state.users.users;
   });
-  console.log(users);
 
   return (
     <div>

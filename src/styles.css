@@ -151,7 +151,6 @@ main > h1 {
 }
 
 .users-list__row {
-  margin-top: 16px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
