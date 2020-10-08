@@ -7,6 +7,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
+import { registerUrl } from "../constants";
 import { loginUserAction } from "../store/actionCreators";
 import { IAuth, IUser, RootState } from "../type";
 
@@ -49,20 +50,10 @@ export const LoginForm: React.FC<Props> = () => {
         });
       }
     },
-    // .then((user) => {
-    //   console.log(user);
-    //   // TODO добавить редирект на страницу пользователя
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    //   // TODO добавить нотификашку и подкрашивание полей формы в error
-    // }),
     [dispatch]
   );
 
   const clickHandler = (e: React.SyntheticEvent): void => {
-    // e.persist();
-    // console.log(authState);
     if (authState) {
       // TODO add validation
       loginUser(authState as IAuth);
@@ -121,7 +112,7 @@ export const LoginForm: React.FC<Props> = () => {
               Войти
             </Button>
             <Button variant="outlined" onClick={clickHandler}>
-              <Link to="/register">Регистрация</Link>
+              <Link to={registerUrl}>Регистрация</Link>
             </Button>
           </div>
         </CardContent>

@@ -8,6 +8,14 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+import {
+  currentUserUrl,
+  loginUrl,
+  logoutUrl,
+  mainUrl,
+  registerUrl,
+  usersUrl,
+} from "../constants";
 import { RootState } from "../type";
 import { CurrentUser } from "./CurrentUser";
 import { LoginForm } from "./LoginForm";
@@ -29,7 +37,7 @@ function PrivateRoute({ children, isAuthentificated, ...rest }: any) {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: loginUrl,
               state: { from: location },
             }}
           />
@@ -52,48 +60,55 @@ export const RouterComp: React.FC<Props> = () => {
             <Typography variant="h5">Куда отправимся?</Typography>
             <nav>
               {!currentUserId && (
-                <Link className="router__link" to="/login">
+                <Link className="router__link" to={loginUrl}>
                   Страница входа
                 </Link>
               )}
-              <Link className="router__link" to="/register">
+              <Link className="router__link" to={registerUrl}>
                 Регистрация
               </Link>
-              <Link className="router__link" to="/users">
+              <Link className="router__link" to={usersUrl}>
                 Все пользователи
               </Link>
-              <Link className="router__link" to="/me">
+              <Link className="router__link" to={currentUserUrl}>
                 Страница текущего пользователя
               </Link>
               {currentUserId && (
-                <Link className="router__link" to="/logout">
+                <Link className="router__link" to={logoutUrl}>
                   Выйти
                 </Link>
               )}
             </nav>
             <div className="main-card__content">
               <Switch>
-                <PrivateRoute exact path="/" isAuthentificated={currentUserId}>
+                <PrivateRoute
+                  exact
+                  path={mainUrl}
+                  isAuthentificated={currentUserId}
+                >
                   <CurrentUser />
                 </PrivateRoute>
-                <Route exact path="/login" component={LoginForm} />
-                <PrivateRoute path="/me" isAuthentificated={currentUserId}>
+                <Route exact path={loginUrl} component={LoginForm} />
+                <PrivateRoute
+                  path={currentUserUrl}
+                  isAuthentificated={currentUserId}
+                >
                   <CurrentUser />
                 </PrivateRoute>
                 <PrivateRoute
                   exact
-                  path="/users"
+                  path={usersUrl}
                   isAuthentificated={currentUserId}
                 >
                   <UsersList />
                 </PrivateRoute>
                 {/* TODO add User component */}
                 {/* <Route exact path="/user/:id" component={User} /> */}
-                <Route exact path="/me" component={CurrentUser} />
-                <Route exact path="/register" component={Registration} />
+                <Route exact path={currentUserUrl} component={CurrentUser} />
+                <Route exact path={registerUrl} component={Registration} />
                 <PrivateRoute
                   exact
-                  path="/logout"
+                  path={logoutUrl}
                   isAuthentificated={currentUserId}
                 >
                   <Logout />

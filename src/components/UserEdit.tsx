@@ -3,6 +3,7 @@ import { Button, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
 import { addUserAction, editUserAction } from "../store/actionCreators";
 import { IUser, RootState } from "../type";
@@ -46,11 +47,13 @@ export const UserEdit: React.FC<Props> = ({
 
   const dispatch: Dispatch<any> = useDispatch();
 
+  let history = useHistory();
   const clickHandler = (e: React.SyntheticEvent): void => {
     console.log(userState);
     // add validation
     const userData = { ...user, ...userState };
     saveUser(userData as IUser);
+    history.push("/me");
   };
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -108,8 +111,6 @@ export const UserEdit: React.FC<Props> = ({
             onChange={(e) => handleInputChange(e)}
           />
         </div>
-        {/* </div> */}
-        {/* <div> */}
         <div className="user-edit__form-field">
           <TextField
             id="surname"
@@ -128,8 +129,6 @@ export const UserEdit: React.FC<Props> = ({
             onChange={(e) => handleInputChange(e)}
           />
         </div>
-        {/* </div> */}
-        {/* <div> */}
         <div className="user-edit__form-field">
           <TextField
             id="patronymic"
