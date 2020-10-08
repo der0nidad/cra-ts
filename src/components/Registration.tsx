@@ -20,7 +20,7 @@ export const Registration: React.FC<Props> = ({ title, buttonText }: Props) => {
       <Container>
         <Paper>
           <UserEdit
-            title="регистер"
+            title="Регистрация"
             buttonText={UserEditButtonTextProp.register}
             isNewUser
           />

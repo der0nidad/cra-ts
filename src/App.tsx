@@ -5,10 +5,10 @@ import "./styles.css";
 
 const App: React.FC = () => {
   return (
-    <main>
+    <div>
       <Header />
       <RouterComp />
-    </main>
+    </div>
   );
 };
 

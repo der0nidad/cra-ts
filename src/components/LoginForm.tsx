@@ -24,8 +24,12 @@ export const LoginForm: React.FC<Props> = () => {
   const loginUser = React.useCallback(
     (auth: IAuth) => {
       try {
-        dispatch(loginUserAction(auth, users));
-        history.push("/me");
+        console.log(dispatch(loginUserAction(auth, users)));
+        console.log(23);
+        history.push("/");
+        history.push("/");
+        history.push("/");
+        console.log(23);
       } catch (error) {
         const errorNotification = (
           <Snackbar
@@ -58,7 +62,7 @@ export const LoginForm: React.FC<Props> = () => {
 
   const clickHandler = (e: React.SyntheticEvent): void => {
     // e.persist();
-    console.log(authState);
+    // console.log(authState);
     if (authState) {
       // TODO add validation
       loginUser(authState as IAuth);
@@ -95,7 +99,7 @@ export const LoginForm: React.FC<Props> = () => {
       <Card>
         <CardHeader title="Вход в систему" />
         <CardContent>
-          <div>
+          <div className="user-edit__form-field">
             <TextField
               id="login"
               label="Логин"
@@ -103,7 +107,7 @@ export const LoginForm: React.FC<Props> = () => {
               onChange={(e) => handleLoginInputChange(e)}
             />
           </div>
-          <div>
+          <div className="user-edit__form-field">
             <TextField
               id="password"
               label="Пароль"

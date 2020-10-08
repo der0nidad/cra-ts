@@ -4,3 +4,5 @@ export const statuses = {
   successStatus,
   errorStatus,
 };
+
+export const emptyString = "не указано";

@@ -91,14 +91,6 @@ export const usersReducer = (
       };
     case actionTypes.LOGOUT_USER:
       localStorage.removeItem("currentUserId");
-      console.log("logout");
-      console.log({
-        ...state,
-        currentUserId: undefined,
-      });
-      for (var i = 0; i < localStorage.length; i++) {
-        console.log(localStorage.getItem(localStorage.key(i) || ""));
-      }
       return {
         ...state,
         currentUserId: undefined,

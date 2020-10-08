@@ -2,10 +2,10 @@
 import { Button, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { addUserAction, editUserAction } from "../store/actionCreators";
-import { IUser } from "../type";
+import { IUser, RootState } from "../type";
 
 export enum UserEditButtonTextProp {
   register = "Регистрация",
@@ -40,6 +40,10 @@ export const UserEdit: React.FC<Props> = ({
 }: Props) => {
   const [userState, setUserState] = React.useState<IUser | {}>();
 
+  const users: readonly IUser[] = useSelector((state: RootState) => {
+    return state.users.users;
+  });
+
   const dispatch: Dispatch<any> = useDispatch();
 
   const clickHandler = (e: React.SyntheticEvent): void => {
@@ -60,7 +64,13 @@ export const UserEdit: React.FC<Props> = ({
   const saveUser = React.useCallback(
     (user: IUser) => {
       if (isNewUser) {
-        return dispatch(addUserAction(user));
+        // проверяем, что пользователя с данным логином нет
+        if (users.find((existingUser) => user.login === existingUser.login)) {
+          // TODO add notification "Логин занят"
+          console.log("Логин занят");
+        } else {
+          return dispatch(addUserAction(user));
+        }
       } else {
         return dispatch(editUserAction(user));
       }
@@ -69,70 +79,80 @@ export const UserEdit: React.FC<Props> = ({
   );
   return (
     <div className="user-edit">
-      {/* <CardHeader title={title} /> */}
-      {/* <CardContent> */}
       <Typography>{title}</Typography>
       <div className="user-edit-fields">
-        <TextField
-          id="login"
-          label="Логин"
-          defaultValue={user?.login}
-          variant="outlined"
-          onChange={(e) => handleInputChange(e)}
-        />
-        <TextField
-          id="password"
-          label="Пароль"
-          variant="outlined"
-          type="password"
-          onChange={(e) => handleInputChange(e)}
-        />
-
-        <TextField
-          id="password-verify"
-          label="Повторите пароль"
-          variant="outlined"
-          type="password"
-          onChange={(e) => handleInputChange(e)}
-        />
+        <div className="user-edit__form-field">
+          <TextField
+            id="login"
+            label="Логин"
+            defaultValue={user?.login}
+            variant="outlined"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="user-edit__form-field">
+          <TextField
+            id="password"
+            label="Пароль"
+            variant="outlined"
+            type="password"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="user-edit__form-field">
+          <TextField
+            id="password-verify"
+            label="Повторите пароль"
+            variant="outlined"
+            type="password"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
         {/* </div> */}
         {/* <div> */}
-        <TextField
-          id="surname"
-          label="Фамилия"
-          variant="outlined"
-          defaultValue={user?.surname}
-          onChange={(e) => handleInputChange(e)}
-        />
-        <TextField
-          id="name"
-          label="Имя"
-          variant="outlined"
-          defaultValue={user?.name}
-          onChange={(e) => handleInputChange(e)}
-        />
+        <div className="user-edit__form-field">
+          <TextField
+            id="surname"
+            label="Фамилия"
+            variant="outlined"
+            defaultValue={user?.surname}
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="user-edit__form-field">
+          <TextField
+            id="name"
+            label="Имя"
+            variant="outlined"
+            defaultValue={user?.name}
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
         {/* </div> */}
         {/* <div> */}
-        <TextField
-          id="patronymic"
-          label="Отчество"
-          defaultValue={user?.patronymic}
-          variant="outlined"
-          onChange={(e) => handleInputChange(e)}
-        />
-        <TextField
-          id="email"
-          label="Email"
-          defaultValue={user?.email}
-          variant="outlined"
-          onChange={(e) => handleInputChange(e)}
-        />
+        <div className="user-edit__form-field">
+          <TextField
+            id="patronymic"
+            label="Отчество"
+            defaultValue={user?.patronymic}
+            variant="outlined"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="user-edit__form-field">
+          <TextField
+            id="email"
+            label="Email"
+            defaultValue={user?.email}
+            variant="outlined"
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
       </div>
 
       <Button variant="contained" color="primary" onClick={clickHandler}>
         {buttonText}
       </Button>
-      {/* </CardContent> */}
     </div>
   );
 };
