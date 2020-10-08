@@ -150,3 +150,11 @@ main > h1 {
 .users-list__row {
   margin-top: 16px;
 }
+
+.main-card {
+  padding: 24px;
+}
+
+.main-card__content {
+  margin-top: 24px;
+}

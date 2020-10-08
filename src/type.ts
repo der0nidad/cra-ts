@@ -17,14 +17,14 @@ export interface IAuth {
 export interface IUser {
   id: string;
   name: string;
-  surname?: string;
-  patronymic?: string;
+  surname: string;
+  patronymic: string;
   email: string;
   sex?: 0 | 1;
   dateOfBirth?: string;
   //  мб вынести в отдельный интерфейс
-  login?: string;
-  password?: string;
+  login: string;
+  password: string;
 }
 
 export type IUserOptional = IUser | undefined;
@@ -79,6 +79,10 @@ export type LoginFailAction = {
   status: "error";
 };
 
+export type LogOutAction = {
+  type: actionTypes.LOGOUT_USER;
+};
+
 export type AuthAction =
   | ArticleAction
   | UserEditAction
@@ -86,7 +90,8 @@ export type AuthAction =
   | LoadingStartAction
   | LoadingFinishAction
   | LoginSuccesAction
-  | LoginFailAction;
+  | LoginFailAction
+  | LogOutAction;
 
 export type DispatchType = (args: AuthAction) => AuthAction;
 

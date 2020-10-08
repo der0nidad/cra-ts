@@ -6,6 +6,7 @@ import {
   ILoginPayload,
   IUser,
   LoginSuccesAction,
+  LogOutAction,
   RemoveUserAction,
   UserEditAction,
 } from "../type";
@@ -84,4 +85,11 @@ export const loginUserAction = (data: ILoginPayload, users: IUser[]) => (
     errorText = `Пользователь с логином ${data.login} не зарегистрирован`;
   }
   throw new Error(errorText);
+};
+
+export const logoutUserAction = () => {
+  const action: LogOutAction = {
+    type: actionTypes.LOGOUT_USER,
+  };
+  return action;
 };

@@ -6,7 +6,6 @@
 // export const LOGIN_USER_START = "LOGIN_USER_START";
 // export const LOGIN_USER_FINISH = "LOGIN_USER_FINISH";
 // export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
-
 enum actionTypes {
   ADD_ARTICLE = "ADD_ARTICLE",
   REMOVE_ARTICLE = "REMOVE_ARTICLE",
@@ -18,6 +17,7 @@ enum actionTypes {
   LOGIN_USER_FAIL = "LOGIN_USER_FAIL",
   LOADING_START = "LOADING_START",
   LOADING_FINISHED = "LOADING_FINISHED",
+  LOGOUT_USER = "LOGOUT_USER",
 }
 
 export default actionTypes;

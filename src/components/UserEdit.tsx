@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
-import { addUserAction } from "../store/actionCreators";
+import { addUserAction, editUserAction } from "../store/actionCreators";
 import { IUser } from "../type";
 
 export enum UserEditButtonTextProp {
@@ -20,7 +20,6 @@ type Props = {
   // TODO выпилить buttonText из пропсов - сделать внутренней константой и
   // выбирать по пропсу isNewUser
   buttonText: UserEditButtonTextProp;
-  actionCallback?: Function;
   user?: IUser;
   isNewUser: boolean;
 };
@@ -36,7 +35,6 @@ type Props = {
 export const UserEdit: React.FC<Props> = ({
   title,
   buttonText,
-  actionCallback,
   user,
   isNewUser,
 }: Props) => {
@@ -46,8 +44,9 @@ export const UserEdit: React.FC<Props> = ({
 
   const clickHandler = (e: React.SyntheticEvent): void => {
     console.log(userState);
-    // add valdation
-    saveUser(userState as IUser);
+    // add validation
+    const userData = { ...user, ...userState };
+    saveUser(userData as IUser);
   };
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -60,8 +59,11 @@ export const UserEdit: React.FC<Props> = ({
 
   const saveUser = React.useCallback(
     (user: IUser) => {
-      // добавляем проверку - если пользователь новый - создаем, иначе редактируем
-      return dispatch(addUserAction(user));
+      if (isNewUser) {
+        return dispatch(addUserAction(user));
+      } else {
+        return dispatch(editUserAction(user));
+      }
     },
     [dispatch]
   );
@@ -74,12 +76,21 @@ export const UserEdit: React.FC<Props> = ({
         <TextField
           id="login"
           label="Логин"
+          defaultValue={user?.login}
           variant="outlined"
           onChange={(e) => handleInputChange(e)}
         />
         <TextField
           id="password"
           label="Пароль"
+          variant="outlined"
+          type="password"
+          onChange={(e) => handleInputChange(e)}
+        />
+
+        <TextField
+          id="password-verify"
+          label="Повторите пароль"
           variant="outlined"
           type="password"
           onChange={(e) => handleInputChange(e)}
@@ -105,12 +116,14 @@ export const UserEdit: React.FC<Props> = ({
         <TextField
           id="patronymic"
           label="Отчество"
+          defaultValue={user?.patronymic}
           variant="outlined"
           onChange={(e) => handleInputChange(e)}
         />
         <TextField
           id="email"
           label="Email"
+          defaultValue={user?.email}
           variant="outlined"
           onChange={(e) => handleInputChange(e)}
         />

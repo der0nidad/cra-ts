@@ -1,10 +1,8 @@
-import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
-import { IUserOptional, RootState, TParams } from "../type";
+import { IUserOptional, RootState } from "../type";
 import { UserEdit, UserEditButtonTextProp } from "./UserEdit";
 
 const noDataLayout = (
@@ -15,14 +13,13 @@ const noDataLayout = (
   </div>
 );
 
-export const CurrentUser = ({ match }: RouteComponentProps<TParams>) => {
+export const CurrentUser = () => {
   const currentUserData: IUserOptional = useSelector((state: RootState) => {
-    console.log(state);
     return state.users.users.find(
       (user) => user.id === state.users.currentUserId
     );
   });
-  console.log(currentUserData);
+
   if (!currentUserData) {
     return noDataLayout;
   }
@@ -30,17 +27,11 @@ export const CurrentUser = ({ match }: RouteComponentProps<TParams>) => {
     <div>
       <Paper>
         <UserEdit
-          title="Редактироование"
+          title="Редактирование"
           buttonText={UserEditButtonTextProp.save}
-          user={{
-            id: "1",
-            name: "nameeee",
-            email: "email, eee",
-            surname: "jug",
-          }}
+          user={currentUserData}
           isNewUser={false}
         />
-        <Button variant="outlined">Выйти</Button>
       </Paper>
     </div>
   );
